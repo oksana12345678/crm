@@ -7,6 +7,7 @@ import {
   TransitionChild,
 } from '@headlessui/react';
 import React, { Fragment } from 'react';
+import { MdOutlineClose } from 'react-icons/md';
 
 export interface ModalProps {
   children?: React.ReactNode;
@@ -33,7 +34,14 @@ function Modal({ show, children, onClose }: ModalProps) {
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </TransitionChild>
-        <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all p-7 mx-auto sm:my-10 sm:w-full sm:max-w-2xl">
+        <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all p-7 mx-auto  sm:my-10 sm:w-full sm:max-w-2xl">
+          <button
+            type="button"
+            className="absolute right-3 top-3"
+            onClick={onClose}
+          >
+            <MdOutlineClose className="w-6 h-6" />
+          </button>
           {children}
         </DialogPanel>
       </Dialog>
