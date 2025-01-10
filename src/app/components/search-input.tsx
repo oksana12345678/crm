@@ -8,11 +8,12 @@ export interface SearchInputProps
 
 function SearchInput({ onSearchClick, ...rest }: SearchInputProps) {
   return (
-    <div>
+    <div className="relative w-[454px]">
       <input
         type="text"
         {...rest}
-        className="text-sm flex-1 py-3 pl-3 pr-11 rounded border border-gray-50"
+        className="w-full bg-transparent text-sm flex-1 py-3 pl-3 pr-11 rounded border-[1px] border-gray-200"
+        placeholder="Search..."
       />
       <button
         type="button"

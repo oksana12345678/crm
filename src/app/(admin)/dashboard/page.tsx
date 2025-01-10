@@ -1,10 +1,10 @@
 import React from 'react';
 
-export interface PageProps {
-  children: React.ReactNode;
-}
+// export interface PageProps {
+//   children: React.ReactNode;
+// }
 
-function Page({}: PageProps) {
+function Page() {
   return (
     <main>
       <h1 className="text-xl">Dashboard Page</h1>
