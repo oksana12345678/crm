@@ -1,5 +1,6 @@
 'use client';
 
+import Header from '@/app/components/header';
 import React, { useEffect, useState } from 'react';
 
 export interface PageProps {
@@ -18,9 +19,9 @@ function Page({ params }: PageProps) {
   }, [params]);
 
   return (
-    <div className="py-6 px-10">
-      <p>{`Information about company (${id})`}</p>
-    </div>
+    <>
+      <Header>{`Company (${id})`}</Header>
+    </>
   );
 }
 

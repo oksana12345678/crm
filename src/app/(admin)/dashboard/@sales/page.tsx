@@ -7,6 +7,7 @@ import { getSummarySales } from '@/lib/app';
 
 async function Page() {
   const data = await getSummarySales();
+
   return (
     <DashboardCard label="Sales details">
       <SummaryTable
