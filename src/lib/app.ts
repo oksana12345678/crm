@@ -34,12 +34,13 @@ export interface Company {
   joinedDate: string;
   hasPromotions: boolean;
   categoryId: string;
-  categoryTitle: string;
+  categoryTitle?: string;
   countryId: string;
-  countryTitle: string;
+  countryTitle?: string;
   avatar?: string;
 }
-export interface Promotion {
+
+export interface PromotionPropsApi {
   id: string;
   title: string;
   description: string;
@@ -95,8 +96,37 @@ export const getPromotions = async (
   params: Record<string, string> = {},
   init?: RequestInit,
 ) => {
-  return sendRequest<Promotion[]>(
+  return sendRequest<PromotionPropsApi[]>(
     `${buildUrl('promotions')}?${stringifyQueryParams(params)}`,
     init,
   );
+};
+
+export const createCompany = async (
+  data: Omit<Company, 'id' | 'hasPromotions'>,
+  init?: RequestInit,
+) => {
+  return sendRequest<Company>(buildUrl('companies'), {
+    ...init,
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      ...(init && init.headers),
+      'content-type': 'application/json',
+    },
+  });
+};
+
+export const createPromotion = async (
+  data: Omit<PromotionPropsApi, 'id'>,
+  init?: RequestInit,
+) => {
+  return sendRequest<PromotionPropsApi>(buildUrl('promotions'), {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      ...(init && init.headers),
+      'content-type': 'application/json',
+    },
+  });
 };

@@ -1,26 +1,28 @@
-'use client';
-
 import Header from '@/app/components/header';
-import React, { useEffect, useState } from 'react';
+import { Company, getCompany } from '@/lib/app';
+import getQueryClient from '@/lib/utils/getQueryClient';
+import React from 'react';
 
 export interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-function Page({ params }: PageProps) {
-  const [id, setId] = useState<string | number | null>(null);
+async function Page({ params }: PageProps) {
+  const queryClient = getQueryClient();
 
-  useEffect(() => {
-    params.then((resolvedParams) => {
-      const { id } = resolvedParams;
+  const id = (await params).id;
 
-      setId(id);
-    });
-  }, [params]);
+  await queryClient.prefetchQuery({
+    queryKey: ['company', id],
+    queryFn: () => getCompany(id, { cache: 'no-store' }),
+    staleTime: 1 * 1000,
+  });
+
+  const company = queryClient.getQueryData<Company>(['company', id]) as Company;
 
   return (
     <>
-      <Header>{`Company (${id})`}</Header>
+      <Header>{company?.title}</Header>
     </>
   );
 }
